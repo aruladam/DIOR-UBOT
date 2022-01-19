@@ -78,7 +78,6 @@ DEVS = (
     1220829364,
     1663258664,
     1220829364,
-    1979717764,
     1820233416,
     1901321169,
     1977874449,
@@ -500,17 +499,17 @@ with bot:
             if event.message.from_id != uid:
                 u = await event.client.get_entity(event.chat_id)
                 await event.reply(
-                    f"__Hey, I am using__  **⚡DIOR-UBOT⚡** \n\n"
+                    f"__Hey, I am using__  **⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡** \n\n"
                 f"⚡ **Group Support :** [Fanda Support](t.me/fandasupport)\n"
                 f"⚡ **Owner Repo :** [Fatur](t.me/uurfavboys1)\n"
                 f"⚡ **Repo :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-BOT)\n",
                     buttons=[
                         [
-                             Button.url(f"𝗦𝘂𝗽𝗽𝗼𝗿𝘁",
+                             Button.url(f"sᴜᴘᴘᴏʀᴛ​",
                                         "t.me/fandasupport"),
-                             Button.url(f"𝗨𝗽𝗱𝗮𝘁𝗲𝘀",
+                             Button.url(f"ᴜᴘᴅᴀᴛᴇs​",
                                         "t.me/fandaproject")],
-                             [Button.url("𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗲𝗿",
+                             [Button.url("ᴅᴇᴠᴇʟᴏᴘᴇʀ​",
                                         "t.me/uurfavboys1")],
                         ]
                       )
@@ -543,9 +542,9 @@ with bot:
             elif query.startswith("repo"):
                 result = builder.article(
                     title="Repository",
-                    description="Repository ⚡DIOR-UBOT⚡",
+                    description="Repository ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     url="https://t.me/fandaproject",
-                    text="**⚡DIOR-UBOT⚡**\n➖➖➖➖➖➖➖➖➖➖\n**Owner :** [FATUR](https://t.me/uurfavboys1)\n**Repository :** [⚡DIOR-UBOT⚡](https://github.com/DIORrios285/DIOR-UBOT)\n➖➖➖➖➖➖➖➖➖➖",
+                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n➖➖➖➖➖➖➖➖➖➖\n**Owner :** [FATUR](https://t.me/uurfavboys1)\n**Repository :** [⚡DIOR-UBOT⚡](https://github.com/DIORrios285/DIOR-UBOT)\n➖➖➖➖➖➖➖➖➖➖",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴏᴘ", "https://t.me/fandasupport"),
@@ -558,7 +557,7 @@ with bot:
                 )
             else:
                 result = builder.article(
-                    title="⚡DIOR-UBOT⚡",
+                    title="⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     description="DIOR-UBOT | Telethon",
                     url="https://t.me/fandasupport",
                     text=f"**DIOR-UBOT**\n➖➖➖➖➖➖➖➖➖➖\n**OWNER:** [FATUR](t.me/uurfavboys1)\n**Bot of:** {tgbotusername}\n➖➖➖➖➖➖➖➖➖➖",
@@ -611,7 +610,7 @@ with bot:
                     link_preview=True)
             else:
                 result = builder.article("{REPO_NAME}",
-                                         text="""𝐃𝐈𝐎𝐑-𝐔𝐁𝐎𝐓""",
+                                         text="""𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙""",
                                          buttons=[[custom.Button.url("ꜰᴀᴛᴜʀ​",
                                                                      "t.me/uurfavboys1"),
                                                    custom.Button.url("ɢʀᴜᴘ​",
