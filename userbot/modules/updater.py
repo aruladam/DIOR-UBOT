@@ -67,7 +67,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
                 f'{txt}\n`Kredensial Heroku tidak valid untuk deploy DIOR-UBOT dyno.`'
             )
             return repo.__del__()
-        await event.edit(f'**[HEROKU] :**'
+        await event.edit(f'**[HEROKU]**'
                          f'\n{REPO_NAME} **Lagi di apdet pler!**\n`Ga lama kok sejam doang, canda jelek`'
                          )
         ups_rem.fetch(ac_br)
@@ -209,7 +209,7 @@ async def upstream(event):
             remove("output.txt")
         else:
             await event.edit(changelog_str)
-        return await event.respond(f"**Perintah untuk memperbarui** {REPO_NAME}\n >`.update one`\n >`.update deploy`\n\n**Report:** [Group Support](https://t.me/fandasupport)")
+        return await event.respond(f"**Perintah untuk memperbarui** {REPO_NAME}\n >`.update one`\n >`.update deploy`\n\n**Report:** @fandasupport")
 
     if force_update:
         await event.edit(
