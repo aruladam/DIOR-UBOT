@@ -10,7 +10,7 @@ from telethon.tl.functions.phone import InviteToGroupCallRequest as invitetovc
 from userbot import CMD_HELP
 from userbot.events import register
 
-NO_ADMIN = "`Maaf Kamu Bukan Admin!"
+NO_ADMIN = "`Maaf Kamu Bukan Admin!`"
 
 
 async def get_call(event):
