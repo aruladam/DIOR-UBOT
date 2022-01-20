@@ -5,7 +5,7 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 async def update_restart_msg(chat_id, msg_id):
     DEFAULTUSER = ALIVE_NAME or "Set `ALIVE_NAME` ConfigVar!"
     message = (
-        f"**⭐RAM-UBOT⭐ v{BOT_VER} Sedang berjalan!**\n\n"
+        f"**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡ v{BOT_VER} Sedang berjalan!**\n\n"
         f"**Telethon:** {version.__version__}\n"
         f"**Python:** {python_version()}\n"
         f"**User:** {DEFAULTUSER}"
@@ -91,7 +91,7 @@ with bot:
         user = bot.get_me()
         uid = user.id
         logo = ALIVE_LOGO
-        ramlogo = HELP_LOGO
+        diorlogo = HELP_LOGO
         tgbotusername = BOT_USERNAME
 
         @tgbot.on(events.NewMessage(pattern="/start"))
