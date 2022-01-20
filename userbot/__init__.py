@@ -419,24 +419,72 @@ from userbot import (
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
 
+async def update_restart_msg(chat_id, msg_id):
+    DEFAULTUSER = ALIVE_NAME or "Set `ALIVE_NAME` ConfigVar!"
+    message = (
+        f"**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡ v{BOT_VER} Sedang berjalan!**\n\n"
+        f"**Telethon:** {version.__version__}\n"
+        f"**Python:** {python_version()}\n"
+        f"**User:** {DEFAULTUSER}"
+    )
+    await bot.edit_message(chat_id, msg_id, message)
+    return True
+
+
+try:
+    from userbot.modules.sql_helper.globals import delgvar, gvarstatus
+
+    chat_id, msg_id = gvarstatus("restartstatus").split("\n")
+    with bot:
+        try:
+            bot.loop.run_until_complete(update_restart_msg(int(chat_id), int(msg_id)))
+        except BaseException:
+            pass
+    delgvar("restartstatus")
+except AttributeError:
+    pass
+
+
+if not BOT_TOKEN is None:
+    tgbot = TelegramClient(
+        "TG_BOT_TOKEN",
+        api_id=API_KEY,
+        api_hash=API_HASH,
+        auto_reconnect=True,
+        connection_retries=None,
+    ).start(bot_token=BOT_TOKEN)
+else:
+    tgbot = None
+
+
 def paginate_help(page_number, loaded_modules, prefix):
     number_of_rows = 5
-    number_of_cols = 2
+    number_of_cols = 4
+    global looters
+    looters = page_number
     helpable_modules = [p for p in loaded_modules if not p.startswith("_")]
     helpable_modules = sorted(helpable_modules)
     modules = [
-        custom.Button.inline("{} {} {} ".format(f"{EMOJI_HELP}", x, f"{EMOJI_HELP}"), data="ub_modul_{}".format(x))
+        custom.Button.inline(
+            "{} {} {}".format(f"{EMOJI_HELP}", x, f"{EMOJI_HELP}"),
+            data="ub_modul_{}".format(x),
+        )
         for x in helpable_modules
     ]
-    pairs = list(zip(modules[::number_of_cols],
-                     modules[1::number_of_cols]))
+    pairs = list(
+        zip(
+            modules[::number_of_cols],
+            modules[1::number_of_cols],
+            modules[2::number_of_cols],
+        )
+    )
     if len(modules) % number_of_cols == 1:
         pairs.append((modules[-1],))
     max_num_pages = ceil(len(pairs) / number_of_rows)
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
         pairs = pairs[
-            modulo_page * number_of_rows: number_of_rows * (modulo_page + 1)
+            modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)
         ] + [
             (
                 custom.Button.inline(
@@ -447,7 +495,7 @@ def paginate_help(page_number, loaded_modules, prefix):
                 ),
                 custom.Button.inline(
                     "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
-                )
+                ),
             )
         ]
     return pairs
@@ -455,55 +503,28 @@ def paginate_help(page_number, loaded_modules, prefix):
 
 with bot:
     try:
-        tgbot = TelegramClient(
-            "TG_BOT_TOKEN",
-            api_id=API_KEY,
-            api_hash=API_HASH).start(
-            bot_token=BOT_TOKEN)
 
         dugmeler = CMD_HELP
-        me = bot.get_me()
-        uid = me.id
-
-
-        @tgbot.on(
-            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
-                data=re.compile("open")
-            )
-        )
-        async def opeen(event):
-            try:
-                tgbotusername = BOT_USERNAME
-                if tgbotusername is not None:
-                    results = await event.client.inline_query(tgbotusername, "@Ram_ubot")
-                    await results[0].click(
-                        event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
-                    )
-                    await event.delete()
-                else:
-                    await event.edit(
-                        "`Botnya ga berfungsi! cacad aowkaokw, Silahkan atur Bot Token dan Username dengan benar. Modul telah dihentikan.`"
-                    )
-            except Exception:
-                return await event.edit(
-                    "`Anda tidak dapat mengirim hasil sebaris dalam obrolan ini (caused by SendInlineBotResultRequest)`"
-                )
-
-
+        user = bot.get_me()
+        uid = user.id
+        logo = ALIVE_LOGO
         diorlogo = HELP_LOGO
-        plugins = CMD_HELP
-        vr = BOT_VER
+        tgbotusername = BOT_USERNAME
 
         @tgbot.on(events.NewMessage(pattern="/start"))
         async def handler(event):
-            if event.message.from_id != uid:
-                u = await event.client.get_entity(event.chat_id)
-                await event.reply(
-                    f"__Hey, I am using__  **⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡** \n\n"
+            await event.message.get_sender()
+            text = (
+                f"__Hey, I am using__  **⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡** \n\n"
                 f"⚡ **Group Support :** [Fanda Support](t.me/fandasupport)\n"
                 f"⚡ **Owner Repo :** [Fatur](t.me/uurfavboys1)\n"
-                f"⚡ **Repo :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-BOT)\n",
-                    buttons=[
+                f"⚡ **Repo :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-BOT)\n"
+            )
+            await tgbot.send_file(
+                event.chat_id,
+                logo,
+                caption=text,
+                buttons=[
                         [
                              Button.url(f"sᴜᴘᴘᴏʀᴛ​",
                                         "t.me/fandasupport"),
@@ -511,20 +532,8 @@ with bot:
                                         "t.me/fandaproject")],
                              [Button.url("ᴅᴇᴠᴇʟᴏᴘᴇʀ​",
                                         "t.me/uurfavboys1")],
-                        ]
+                        ],
                       )
-
-
-        @tgbot.on(events.NewMessage(pattern="/ping"))
-        async def handler(event):
-            if event.message.from_id != uid:
-                start = datetime.now()
-                end = datetime.now()
-                ms = (end - start).microseconds / 1000
-                await tgbot.send_message(
-                    event.chat_id,
-                    f"**OY PLERR!!**\n `{ms}ms`",
-                )
 
         @tgbot.on(events.InlineQuery)
         async def inline_handler(event):
@@ -592,7 +601,7 @@ with bot:
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query.startswith("@Dior_ubot"):
+            if event.query.user_id == uid and query.startswith("@Ram_ubot"):
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.photo(
                     file=diorlogo,
@@ -604,7 +613,7 @@ with bot:
                 )
             elif query.startswith("tb_btn"):
                 result = builder.article(
-                    f"Bantuan Dari {REPO_NAME}",
+                    "Bantuan Dari {REPO_NAME}",
                     text="Daftar Plugins",
                     buttons=[],
                     link_preview=True)
@@ -624,7 +633,8 @@ with bot:
                                           )
             await event.answer([result] if result else None)
 
-        @ tgbot.on(
+
+        @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_next\((.+?)\)")
             )
@@ -641,13 +651,13 @@ with bot:
                 reply_pop_up_alert = f"🚫!WARNING!🚫 Jangan Menggunakan Milik {DEFAULTUSER}."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-        @ tgbot.on(
+        @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_close\((.+?)\)")
             )
         )
         async def on_plug_in_callback_query_handler(event):
-            if event.query.user_id == uid:  # @Dior_ubot
+            if event.query.user_id == uid:  # @Ram_ubot
                 # https://t.me/TelethonChat/115200
                 await event.edit(
                     file=diorlogo,
@@ -668,14 +678,14 @@ with bot:
                     ]
                 )
 
-        @ tgbot.on(events.CallbackQuery(data=b"close"))
+        @tgbot.on(events.CallbackQuery(data=b"close"))
         async def close(event):
-            buttons = [
-                (custom.Button.inline("Open Menu", data="open_plugin"),),
+            buttons =[
+                [custom.Button.inline("Open Menu", data="nepo")],
             ]
-            await event.edit(f"Menu Ditutup!", buttons=buttons)
+            await event.edit("Menu Ditutup!", buttons=buttons.clear())
 
-        @tgbot.on(
+        @ tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_prev\((.+?)\)")
             )
@@ -693,7 +703,6 @@ with bot:
                 reply_pop_up_alert = f"🚫!WARNING!🚫 Jangan Menggunakan Milik {DEFAULTUSER}."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-
         @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"ub_modul_(.*)")
@@ -704,10 +713,11 @@ with bot:
                 modul_name = event.data_match.group(1).decode("UTF-8")
 
                 cmdhel = str(CMD_HELP[modul_name])
-                if len(cmdhel) > 150:
+                if len(cmdhel) > 180:
                     help_string = (
-                        str(CMD_HELP[modul_name]).replace('`', '')[:150] + "..."
-                        + "\n\nGunakan .help untuk melihat lebih banyak."
+                        str(CMD_HELP[modul_name]).replace(
+                            '`', '')[:180] + "..."
+                        + "\n\nBaca Text Berikutnya Ketik .help "
                         + modul_name
                         + " "
                     )
@@ -726,20 +736,19 @@ with bot:
 
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-        @tgbot.on(events.CallbackQuery(data=b"close"))
-        async def close(event):
-            await event.edit("Menu di tutup!\nUntuk Melihat Menu, Silahkan Ketik `.helpme`", buttons=Button.clear())
-
-
     except BaseException:
         LOGS.info(
-            "Mode Inline Bot Kamu Nonaktif. "
+            "Mode Inline Bot Mu Nonaktif. "
             "Untuk Mengaktifkannya, Silahkan Pergi Ke @BotFather Lalu, Settings Bot > Pilih Mode Inline > Turn On. ")
     try:
         bot.loop.run_until_complete(check_botlog_chatid())
     except BaseException:
         LOGS.info(
             "BOTLOG_CHATID Environment Variable Isn't a "
-            "Valid Entity. Please Check Your Environment variables/config.env File."
-        )
+            "Valid Entity. Please Check Your Environment variables/config.env File.")
         quit(1)
+# =====
+                    
+        
+        
+     
