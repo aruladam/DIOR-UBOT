@@ -493,8 +493,6 @@ def paginate_help(page_number, loaded_modules, prefix):
                     "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
-        ]
-        [
             (
                 custom.Button.inline(
                     f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
@@ -548,7 +546,7 @@ with bot:
                 result = builder.photo(
                     file=diorlogo,
                     link_preview=False,
-                    text=f"**inline DIOR-UBOT**\n\n**Owner** [FATUR](t.me/uurfavboys1)\n**Jumlah** `{len(dugmeler)}` Modules",
+                    text=f"⚡ **inline 𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n\n• **Bot of** {ALIVE_NAME}\n• **modules** `{len(dugmeler)}`",
                     buttons=buttons,
                 )
             elif query.startswith("repo"):
@@ -556,7 +554,7 @@ with bot:
                     title="Repository",
                     description="Repository ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     url="https://t.me/fandaproject",
-                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n➖➖➖➖➖➖➖➖➖➖\n**Owner :** [FATUR](https://t.me/uurfavboys1)\n**Repository :** [⚡DIOR-UBOT⚡](https://github.com/DIORrios285/DIOR-UBOT)\n➖➖➖➖➖➖➖➖➖➖",
+                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Owner :** [FATUR](https://t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Repository :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴏᴘ", "https://t.me/fandasupport"),
@@ -572,7 +570,7 @@ with bot:
                     title="⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     description="DIOR-UBOT | Telethon",
                     url="https://t.me/fandasupport",
-                    text=f"**DIOR-UBOT**\n➖➖➖➖➖➖➖➖➖➖\n**OWNER:** [FATUR](t.me/uurfavboys1)\n**Bot of:** {tgbotusername}\n➖➖➖➖➖➖➖➖➖➖",
+                    text=f"**𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n▬▭▬▬▭▬\n➥ **Owner:** [FATUR](t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Bot of:** {tgbotusername}\n▬▭▬▬▭▬",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴜᴘ", "https://t.me/fandasupport"),
@@ -623,11 +621,12 @@ with bot:
             else:
                 result = builder.article("{REPO_NAME}",
                                          text="""𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙""",
-                                         buttons=[[custom.Button.url("ꜰᴀᴛᴜʀ​",
+                                         buttons=[
+                                                  [custom.Button.url("ꜰᴀᴛᴜʀ​",
                                                                      "t.me/uurfavboys1"),
                                                    custom.Button.url("ɢʀᴜᴘ​",
                                                                      "t.me/fandasupport"),
-                                                   ],
+                                                  ],
                                                   [custom.Button.url("ʟɪᴄᴇɴsᴇ​",
                                                                      "https://github.com/DIORrios285/DIOR-UBOT/LICENSE",
                                                                      )],
@@ -660,7 +659,7 @@ with bot:
             )
         )
         async def on_plug_in_callback_query_handler(event):
-            if event.query.user_id == uid:  # @Ram_ubot
+            if event.query.user_id == uid:  # @Dior_ubot
                 # https://t.me/TelethonChat/115200
                 await event.edit(
                     file=diorlogo,
