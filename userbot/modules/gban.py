@@ -110,7 +110,7 @@ async def gben(userbot):
     if user:
         if user.id in DEVS:
             return await dark.edit(
-                f"**LU GABISA GBAN FATUR, DIA YANG BIKIN GUA GOBLOK!!!**"
+                f"**Lo ga bisa banned fatur, dia devloper gue goblok!!!**"
             )
         try:
             from userbot.modules.sql_helper.gmute_sql import gmute
@@ -212,7 +212,7 @@ async def gunben(userbot):
         f"╭┈─────────────━\n"
         f"││➩ **Tuan:** `{ALIVE_NAME}` \n" 
         f"││➩ **Pengguna:** [{user.first_name}](tg://user?id={user.id}) \n" 
-        f"││➩ **Aksi:** `Membatalkan perintah Global Banned` \n\n" 
+        f"││➩ **Aksi:** `Un GBanned` \n\n" 
         f"╰┈─────────────━\n\n"
         f"❂ __Gbanned by ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡__")
 
