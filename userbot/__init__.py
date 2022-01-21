@@ -546,7 +546,7 @@ with bot:
                 result = builder.photo(
                     file=diorlogo,
                     link_preview=False,
-                    text=f"⚡ **inline 𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n\n• **Bot of** {ALIVE_NAME}\n• **modules** `{len(dugmeler)}`",
+                    text=f"⚡ **inline 𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n\n• **Bot of:** {tgbotusername}\n• **modules:** `{len(dugmeler)}`\n• **Developer:** [FATUR](https://t.me/uurfavboys1)",
                     buttons=buttons,
                 )
             elif query.startswith("repo"):
@@ -554,7 +554,7 @@ with bot:
                     title="Repository",
                     description="Repository ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     url="https://t.me/fandaproject",
-                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Owner :** [FATUR](https://t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Repository :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
+                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Developer:** [FATUR](https://t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Repository:** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴏᴘ", "https://t.me/fandasupport"),
