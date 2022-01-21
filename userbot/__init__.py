@@ -475,7 +475,6 @@ def paginate_help(page_number, loaded_modules, prefix):
         zip(
             modules[::number_of_cols],
             modules[1::number_of_cols],
-            modules[2::number_of_cols],
         )
     )
     if len(modules) % number_of_cols == 1:
@@ -491,10 +490,14 @@ def paginate_help(page_number, loaded_modules, prefix):
                     "⟨⟨", data="{}_prev({})".format(prefix, modulo_page)
                 ),
                 custom.Button.inline(
-                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
-                ),
-                custom.Button.inline(
                     "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
+                ),
+            )
+        ]
+        [
+            (
+                custom.Button.inline(
+                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
                 ),
             )
         ]
