@@ -490,12 +490,10 @@ def paginate_help(page_number, loaded_modules, prefix):
                     "⟨⟨", data="{}_prev({})".format(prefix, modulo_page)
                 ),
                 custom.Button.inline(
-                    "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
-                ),
-            )
-            (
-                custom.Button.inline(
                     f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
+                ),
+                custom.Button.inline(
+                    "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
         ]
@@ -602,7 +600,7 @@ with bot:
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query.startswith("@Ram_ubot"):
+            if event.query.user_id == uid and query.startswith("@Dior_ubot"):
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.photo(
                     file=diorlogo,
