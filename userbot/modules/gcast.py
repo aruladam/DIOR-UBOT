@@ -15,6 +15,7 @@ GCAST_BLACKLIST = [
     -1001109837870,  # TelegramBotIndonesia
     -1001752592753,  # Skyzusupport
     -1001549206558,  # FandaSupport
+    -1001380293847,  # NastySupport
 ]
 
 # Kalo fork atau coppy blacklist jangan dihapus bangsat,
