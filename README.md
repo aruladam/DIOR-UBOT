@@ -12,8 +12,6 @@ src="https://img.shields.io/pypi/v/telethon?color=important&label=telethon&logo=
 
 [![Sparkline](https://stars.medv.io/DIORrios285/DIOR-UBOT.svg)](https://stars.medv.io/DIORrios285/DIOR-UBOT)
 
-Userbot yang berbasis [RAM-UBOT](https://github.com/ramadhani892/RAM-UBOT) dan [Man-Userbot](https://github.com/mrismanaziz/Man-Userbot) dengan fungsi untuk mempermudah pengelolaan (grup chat) serta menyediakan beberapa fitur (otomatis) yang membuat penggunaan telegram lebih menyenangkan 
-
 ## DISCLAIMER
 
 ```
@@ -46,8 +44,7 @@ src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/pyth
 ## © Credits
 
 🙏 **TERIMAKASIH BANYAK BANYAK BANYAK BANYAK BANGET DAH KEPADA**
-*   [Fatur](https://github.com/DIORros285/DIOR-UBOT) DIOR-UBOT 
+*   [Skyzu](https://github.com/Skyzu/Skyzu-userbot) Skyzu-userbot
 *   [Ramadhani](https://github.com/ramadhani892/RAM-UBOT) RAM-UBOT
-*   [VCKYOU](https://github.com/Vckyou/Geez-Project)    Geez - Project
 *   [Koala](https://github.com/ManusiaRakitan/Kampang-Bot)    Kampang - Bot
 *   DAN KEPADA SELURUH USERBOT INDONESIA LAINNYA!.
