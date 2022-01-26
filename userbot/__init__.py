@@ -488,11 +488,11 @@ def paginate_help(page_number, loaded_modules, prefix):
             )
         ]
         [
-            (
+            
                 custom.Button.inline(
                     f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
                 ),
-            )
+            
         ]
     return pairs
 
@@ -602,7 +602,7 @@ with bot:
                 result = builder.photo(
                     file=diorlogo,
                     link_preview=False,
-                    text=f"Usᴇʀʙᴏᴛ Tᴇʟᴇɢʀᴀᴍ\n\n❥ **ʙᴏᴛ ᴏꜰ :** {DEFAULTUSER}\n❥ **ʙᴏᴛ ᴠᴇʀ :** 8.0.0\n❥ **ᴍᴏᴅᴜʟᴇꜱ :** {len(plugins)}\n❥ @fandasupport".format(
+                    text=f"Usᴇʀʙᴏᴛ Tᴇʟᴇɢʀᴀᴍ\n\n❥ **ʙᴏᴛ ᴠᴇʀ :** 8.0.0\n❥ **ᴍᴏᴅᴜʟᴇꜱ :** {len(plugins)}\n❥ @fandasupport".format(
                         len(dugmeler),
                     ),
                     buttons=buttons,
