@@ -214,11 +214,11 @@ S_PACK_NAME = os.environ.get("S_PACK_NAME", None)
 
 # Default .alive Logo
 ALIVE_LOGO = os.environ.get(
-    "ALIVE_LOGO") or "https://telegra.ph/file/584ab6a5e75e9899f6408.jpg"
+    "ALIVE_LOGO") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
 
 # Default .helpme logo
 HELP_LOGO = os.environ.get(
-   "HELP_LOGO") or "https://telegra.ph/file/a0c7b8690b88092816efb.jpg"
+   "HELP_LOGO") or "1https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
 
 # Default .alive Instagram
 IG_ALIVE = os.environ.get("IG_ALIVE") or "instagram.com/fatur.285"
@@ -663,6 +663,8 @@ with bot:
                             "Open Menu", data="open_plugin"),
                             Button.url("Updates",
                                        "t.me/fandaproject")],
+                        [custom.Button.inline(
+                            "Open Menu", data="open_plugin")],
                         [custom.Button.inline(
                             "Close", b"close")],
                     ]
