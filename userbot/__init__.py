@@ -483,16 +483,12 @@ def paginate_help(page_number, loaded_modules, prefix):
                     "⟨⟨", data="{}_prev({})".format(prefix, modulo_page)
                 ),
                 custom.Button.inline(
+                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
+                ),
+                custom.Button.inline(
                     "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
                 ),
             )
-        ]
-        [
-            
-                custom.Button.inline(
-                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
-                ),
-            
         ]
     return pairs
 
@@ -661,15 +657,12 @@ with bot:
                     link_preview=True,
                     buttons=[
                         [
-                            Button.url("Sumbang Kosa kata",
-                                       "t.me/requestkatakatalubot"),],
-                        [
                             Button.url("Support",
                                        "t.me/fandasupport"),
+                            custom.Button.inline(
+                            "Open Menu", data="open_plugin"),
                             Button.url("Updates",
                                        "t.me/fandaproject")],
-                        [custom.Button.inline(
-                            "Open Menu", data="open_plugin")],
                         [custom.Button.inline(
                             "Close", b"close")],
                     ]
