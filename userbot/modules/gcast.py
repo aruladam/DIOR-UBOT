@@ -2,20 +2,15 @@ from userbot.events import register
 from userbot import CMD_HELP, bot
 
 GCAST_BLACKLIST = [
-    -1001473548283,  # SharingUserbot
     -1001433238829,  # TedeSupport
     -1001476936696,  # AnosSupport
     -1001327032795,  # UltroidSupport
     -1001294181499,  # UserBotIndo
     -1001419516987,  # VeezSupportGroup
-    -1001209432070,  # GeezSupportGroup
     -1001296934585,  # X-PROJECT BOT
     -1001481357570,  # UsergeOnTopic
     -1001459701099,  # CatUserbotSupport
     -1001109837870,  # TelegramBotIndonesia
-    -1001752592753,  # Skyzusupport
-    -1001549206558,  # FandaSupport
-    -1001380293847,  # NastySupport
 ]
 
 # Kalo fork atau coppy blacklist jangan dihapus bangsat,
