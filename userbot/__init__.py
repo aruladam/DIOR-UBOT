@@ -76,13 +76,6 @@ if CONFIG_CHECK:
 # KALO NGEFORK ID DEVS NYA GA USAH DI HAPUS YA GOBLOK 😡
 DEVS = (
     1220829364,
-    1663258664,
-    1220829364,
-    1820233416,
-    1901321169,
-    1977874449,
-    1784606556,
-    5041451209,
 )
 
 # Telegram App KEY and HASH
@@ -490,10 +483,14 @@ def paginate_help(page_number, loaded_modules, prefix):
                     "⟨⟨", data="{}_prev({})".format(prefix, modulo_page)
                 ),
                 custom.Button.inline(
-                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
-                ),
-                custom.Button.inline(
                     "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
+                ),
+            )
+        ]
+        [
+            (
+                custom.Button.inline(
+                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
                 ),
             )
         ]
