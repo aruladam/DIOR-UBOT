@@ -239,7 +239,7 @@ GROUP_LINK = os.environ.get(
 
 # Default .repo Bot
 OWNER_BOT = os.environ.get(
-    "OWNER_BOT") or "t.me/uurfavboys1"
+    "OWNER_BOT") or "t.me/uurfavboys"
 
 
 # Last.fm Module
@@ -516,7 +516,7 @@ with bot:
             text = (
                 f"__Hey, I am using__  **⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡** \n\n"
                 f"⚡ **Group Support :** [Fanda Support](t.me/fandasupport)\n"
-                f"⚡ **Owner Repo :** [Fatur](t.me/uurfavboys1)\n"
+                f"⚡ **Owner Repo :** [Fatur](t.me/uurfavboys)\n"
                 f"⚡ **Repo :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-BOT)\n"
             )
             await tgbot.send_file(
@@ -530,7 +530,7 @@ with bot:
                              Button.url(f"ᴜᴘᴅᴀᴛᴇs​",
                                         "t.me/fandaproject")],
                              [Button.url("ᴅᴇᴠᴇʟᴏᴘᴇʀ​",
-                                        "t.me/uurfavboys1")],
+                                        "t.me/uurfavboys")],
                         ],
                       )
 
@@ -552,7 +552,7 @@ with bot:
                     title="Repository",
                     description="Repository ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     url="https://t.me/fandaproject",
-                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Developer:** [FATUR](https://t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Repository:** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
+                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Developer:** [FATUR](https://t.me/uurfavboys)\n▬▭▬▬▭▬\n➥ **Repository:** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴏᴘ", "https://t.me/fandasupport"),
@@ -568,7 +568,7 @@ with bot:
                     title="⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
                     description="DIOR-UBOT | Telethon",
                     url="https://t.me/fandasupport",
-                    text=f"**𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n▬▭▬▬▭▬\n➥ **Owner:** [FATUR](t.me/uurfavboys1)\n▬▭▬▬▭▬\n➥ **Bot of:** {tgbotusername}\n▬▭▬▬▭▬",
+                    text=f"**𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n▬▭▬▬▭▬\n➥ **Owner:** [FATUR](t.me/uurfavboys)\n▬▭▬▬▭▬\n➥ **Bot of:** {tgbotusername}\n▬▭▬▬▭▬",
                     buttons=[
                         [
                             custom.Button.url("ɢʀᴜᴘ", "https://t.me/fandasupport"),
@@ -621,7 +621,7 @@ with bot:
                                          text="""𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙""",
                                          buttons=[
                                                   [custom.Button.url("ꜰᴀᴛᴜʀ​",
-                                                                     "t.me/uurfavboys1"),
+                                                                     "t.me/uurfavboys"),
                                                    custom.Button.url("ɢʀᴜᴘ​",
                                                                      "t.me/fandasupport"),
                                                   ],
