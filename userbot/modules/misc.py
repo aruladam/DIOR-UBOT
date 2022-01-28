@@ -126,7 +126,7 @@ async def repo_is_here(wannasee):
         f"**Hi, saya menggunakan ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n\n"
         f"**Channel :** [Channel](t.me/fandaproject)\n"
         f"**Group :** [Group](t.me/fandasupport)\n"
-        f"**Owner :** [Owner](t.me/uurfavboys1)\n"
+        f"**Owner :** [Owner](t.me/uurfavboys)\n"
         f"**Repo :** [Repo](https://github.com/DIORrios285/DIOR-UBOT)"
         )
 
