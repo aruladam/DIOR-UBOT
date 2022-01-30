@@ -219,6 +219,14 @@ ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
 # Sticker Custom Pack Name
 S_PACK_NAME = os.environ.get("S_PACK_NAME", None)
 
+# Default .alive Group
+GROUP_LINK = os.environ.get(
+    "GROUP_LINK") or "t.me/fandasupport"
+
+# Default .repo Bot
+OWNER_BOT = os.environ.get(
+    "OWNER_BOT") or "t.me/uurfavboys"
+
 # Default .alive Logo
 ALIVE_LOGO = os.environ.get(
     "ALIVE_LOGO") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
