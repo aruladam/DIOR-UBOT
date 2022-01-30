@@ -18,12 +18,11 @@ INVALID_PH = '\nERROR: Nomor Telepon yang dimasukkan INVALID' \
              '\n atau periksa nomor telepon Anda dan coba lagi !'
 
 try:
-    bot.start()
-await bot(JoinChannelRequest("@fandasupport")) 
+    bot.start() 
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     exit(1)
-
+await bot(JoinChannelRequest("@fandasupport"))
 
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
