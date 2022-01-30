@@ -26,6 +26,7 @@ for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
 
 
+# bot.loop.run_until_complete(checking())
 LOGS.info(
     f"⚡DIOR-UBOT⚡ ⚙️ V{BOT_VER} [BERHASIL DI AKTIFKAN PLER!]")
 
