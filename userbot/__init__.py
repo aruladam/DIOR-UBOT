@@ -187,6 +187,9 @@ YOUTUBE_API_KEY = os.environ.get(
 # Untuk Mengubah Pesan Welcome
 START_WELCOME = os.environ.get("START_WELCOME", None)
 
+# Untuk Melihat Repo
+REPO_NAME = os.environ.get("REPO_NAME") or "⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡"
+
 # Default .alive Name
 ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
 
