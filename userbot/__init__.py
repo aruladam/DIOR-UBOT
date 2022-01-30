@@ -219,14 +219,6 @@ ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
 # Sticker Custom Pack Name
 S_PACK_NAME = os.environ.get("S_PACK_NAME", None)
 
-# Default .alive Group
-GROUP_LINK = os.environ.get(
-    "GROUP_LINK") or "t.me/fandasupport"
-
-# Default .repo Bot
-OWNER_BOT = os.environ.get(
-    "OWNER_BOT") or "t.me/uurfavboys"
-
 # Default .alive Logo
 ALIVE_LOGO = os.environ.get(
     "ALIVE_LOGO") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
@@ -234,6 +226,17 @@ ALIVE_LOGO = os.environ.get(
 # Default .helpme Logo
 INLINE_PIC = os.environ.get(
     "INLINE_PIC") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
+
+# Default .alive Instagram
+IG_ALIVE = os.environ.get("IG_ALIVE") or "instagram.com/fatur.285"
+
+# Default .alive Group
+GROUP_LINK = os.environ.get(
+    "GROUP_LINK") or "t.me/fandasupport"
+
+# Default .repo Bot
+OWNER_BOT = os.environ.get(
+    "OWNER_BOT") or "t.me/uurfavboys"
 
 # Default emoji help
 EMOJI_HELP = os.environ.get("EMOJI_HELP") or "✰"
