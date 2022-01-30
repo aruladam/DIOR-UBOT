@@ -166,6 +166,12 @@ NC_LOG_P_M_S = bool(os.environ.get("NC_LOG_P_M_S", False))
 # send .get_id in any channel to forward all your NEW PMs to this group
 PM_LOGGR_BOT_API_ID = int(os.environ.get("PM_LOGGR_BOT_API_ID", "-100"))
 
+# OpenWeatherMap API Key
+OPEN_WEATHER_MAP_APPID = os.environ.get(
+    "OPEN_WEATHER_MAP_APPID") or "5ed2fcba931692ec6bd0a8a3f8d84936"
+WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", "Batam")
+
+
 # Lydia API
 LYDIA_API_KEY = os.environ.get(
     "LYDIA_API_KEY") or "632740cd2395c73b58275b54ff57a02b607a9f8a4bbc0e37a24e7349a098f95eaa6569e22e2d90093e9c1a9cc253380a218bfc2b7af2e407494502f6fb76f97e"
@@ -221,11 +227,11 @@ S_PACK_NAME = os.environ.get("S_PACK_NAME", None)
 
 # Default .alive Logo
 ALIVE_LOGO = os.environ.get(
-    "ALIVE_LOGO") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
+    "ALIVE_LOGO") or "https://telegra.ph/file/b4fcaa3f9bd54d3802bcc.jpg"
 
 # Default .helpme Logo
 INLINE_PIC = os.environ.get(
-    "INLINE_PIC") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
+    "INLINE_PIC") or "https://telegra.ph/file/b4fcaa3f9bd54d3802bcc.jpg"
 
 # Default .alive Instagram
 IG_ALIVE = os.environ.get("IG_ALIVE") or "instagram.com/fatur.285"
