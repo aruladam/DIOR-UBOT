@@ -1,21 +1,13 @@
-# Copyright (C) 2019 The Raphielscape Company LLC.
-# Licensed under the Raphielscape Public License, Version 1.d (the "License");
-# you may not use this file except in compliance with the License.
-# Credits @keselekpermen69 / @Ultroid / @RAM-UBOT
-# Ported @MaafGausahSokap / JANGAN DI APUS BABI
-# SSSUT DIOR MAU IKUTAN
-"""Userbot initialization."""
+""" Userbot initialization. """
 
+import logging
 import os
 import time
 import re
 import redis
-import io
 import random
 import pybase64
 import sys
-
-from datetime import datetime
 
 from sys import version_info
 from logging import basicConfig, getLogger, INFO, DEBUG
@@ -25,14 +17,15 @@ from math import ceil
 from pylast import LastFMNetwork, md5
 from pySmartDL import SmartDL
 from pymongo import MongoClient
+from datetime import datetime
 from redis import StrictRedis
 from dotenv import load_dotenv
 from requests import get
 from telethon.sync import TelegramClient, custom, events
+from telethon.tl.functions.channels import JoinChannelRequest as GetSec
 from telethon.sessions import StringSession
 from telethon import Button, events, functions, types
 from telethon.utils import get_display_name
-
 
 redis_db = None
 
@@ -77,19 +70,21 @@ if CONFIG_CHECK:
 
 # KALO NGEFORK ID DEVS NYA GA USAH DI HAPUS YA GOBLOK 😡
 DEVS = (
-    1220829364,
     1663258664,
-    1220829364,
-    1820233416,
+    1416529201,
+    1964264380,
+    5041451209,
+    955903284,
     1901321169,
     1977874449,
-    1784606556,
-    5041451209,
+    1675900974,
+    1904791338,
+    883761960,
 )
 
 # Telegram App KEY and HASH
-API_KEY = os.environ.get("API_KEY", "")
-API_HASH = os.environ.get("API_HASH", "")
+API_KEY = int(os.environ.get("API_KEY") or None)
+API_HASH = str(os.environ.get("API_HASH") or None)
 
 # Userbot Session String
 STRING_SESSION = os.environ.get("STRING_SESSION", "")
@@ -101,6 +96,13 @@ BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID", ""))
 BOTLOG = sb(os.environ.get("BOTLOG", "True"))
 LOGSPAMMER = sb(os.environ.get("LOGSPAMMER", "False"))
 
+# Custom Pmpermit text
+PMPERMIT_TEXT = os.environ.get("PMPERMIT_TEXT", None)
+
+# Custom Pmpermit pic
+PMPERMIT_PIC = os.environ.get(
+    "PMPERMIT_PIC") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
+
 # Bleep Blop, this is a bot ;)
 PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
 
@@ -110,7 +112,7 @@ if G_BAN_LOGGER_GROUP:
     G_BAN_LOGGER_GROUP = int(G_BAN_LOGGER_GROUP)
 
 # Heroku Credentials for updater.
-HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "False"))
+HEROKU_MEMEZ = sb(os.environ.get("HEROKU_MEMEZ", "True"))
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", "")
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", "")
 
@@ -126,7 +128,7 @@ UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
     "https://github.com/DIORrios285/DIOR-UBOT")
 UPSTREAM_REPO_BRANCH = os.environ.get(
-    "UPSTREAM_REPO_BRANCH", "DIOR-UBOT")
+    "UPSTREAM_REPO_BRANCH", "Kayzu-Ubot")
 
 # Console verbose logging
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
@@ -135,10 +137,12 @@ CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 DB_URI = os.environ.get("DATABASE_URL", None)
 
 # OCR API key
-OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
+OCR_SPACE_API_KEY = os.environ.get(
+    "OCR_SPACE_API_KEY") or "12dc42a0ff88957"
 
 # remove.bg API key
-REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
+REM_BG_API_KEY = os.environ.get(
+    "REM_BG_API_KEY") or "ihAEGNtfnVtCsWnzqiXM1GcS"
 
 # Redis URI & Redis Password
 REDIS_URI = os.environ.get('REDIS_URI', None)
@@ -153,14 +157,15 @@ if REDIS_URI and REDIS_PASSWORD:
         )
         redis_connection.ping()
     except Exception as e:
-        LOGGER.exception(e)
+        logging.exception(e)
         print()
-        LOGGER.error(
+        logging.error(
             "Make sure you have the correct Redis endpoint and password "
             "and your machine can make connections."
         )
 
 # Chrome Driver and Headless Google Chrome Binaries
+CHROME_BIN = os.environ.get("CHROME_BIN", "/app/.apt/usr/bin/google-chrome")
 CHROME_DRIVER = os.environ.get("CHROME_DRIVER") or "/usr/bin/chromedriver"
 GOOGLE_CHROME_BIN = os.environ.get(
     "GOOGLE_CHROME_BIN") or "/usr/bin/google-chrome"
@@ -171,11 +176,13 @@ NC_LOG_P_M_S = bool(os.environ.get("NC_LOG_P_M_S", False))
 PM_LOGGR_BOT_API_ID = int(os.environ.get("PM_LOGGR_BOT_API_ID", "-100"))
 
 # OpenWeatherMap API Key
-OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
-WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
+OPEN_WEATHER_MAP_APPID = os.environ.get(
+    "OPEN_WEATHER_MAP_APPID") or "5ed2fcba931692ec6bd0a8a3f8d84936"
+WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", "Batam")
 
 # Lydia API
-LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
+LYDIA_API_KEY = os.environ.get(
+    "LYDIA_API_KEY") or "632740cd2395c73b58275b54ff57a02b607a9f8a4bbc0e37a24e7349a098f95eaa6569e22e2d90093e9c1a9cc253380a218bfc2b7af2e407494502f6fb76f97e"
 
 # For MONGO based DataBase
 MONGO_URI = os.environ.get("MONGO_URI", None)
@@ -188,10 +195,16 @@ ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
 ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
 
 # Youtube API key
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+YOUTUBE_API_KEY = os.environ.get(
+    "YOUTUBE_API_KEY") or "AIzaSyACwFrVv-mlhICIOCvDQgaabo6RIoaK8Dg"
 
-# Untuk Melihat Repo
-REPO_NAME = os.environ.get("REPO_NAME") or "⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡"
+# Untuk Perintah .kayalive
+KAYZU_TEKS_KUSTOM = os.environ.get(
+    "KAYZU_TEKS_KUSTOM",
+    "I'am Using Kayzu-Ubot✨")
+
+# Untuk Mengubah Pesan Welcome
+START_WELCOME = os.environ.get("START_WELCOME", None)
 
 # Default .alive Name
 ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
@@ -207,13 +220,14 @@ CLEAN_WELCOME = sb(os.environ.get("CLEAN_WELCOME", "True"))
 ZIP_DOWNLOAD_DIRECTORY = os.environ.get("ZIP_DOWNLOAD_DIRECTORY", "./zips")
 
 # bit.ly Module
-BITLY_TOKEN = os.environ.get("BITLY_TOKEN", None)
+BITLY_TOKEN = os.environ.get(
+    "BITLY_TOKEN") or "o_1fpd9299vp"
 
 # Bot Name
-TERM_ALIAS = os.environ.get("TERM_ALIAS", "⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡")
+TERM_ALIAS = os.environ.get("TERM_ALIAS", "Kayzu-Ubot")
 
 # Bot Version
-BOT_VER = os.environ.get("BOT_VER", "8.0.0")
+BOT_VER = os.environ.get("BOT_VER", "7.0")
 
 # Default .alive Username
 ALIVE_USERNAME = os.environ.get("ALIVE_USERNAME", None)
@@ -223,32 +237,22 @@ S_PACK_NAME = os.environ.get("S_PACK_NAME", None)
 
 # Default .alive Logo
 ALIVE_LOGO = os.environ.get(
-    "ALIVE_LOGO") or "https://telegra.ph/file/584ab6a5e75e9899f6408.jpg"
+    "ALIVE_LOGO") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
 
-# Default .helpme logo
-HELP_LOGO = os.environ.get(
-   "HELP_LOGO") or "https://telegra.ph/file/a0c7b8690b88092816efb.jpg"
-
-# Default .alive Instagram
-IG_ALIVE = os.environ.get("IG_ALIVE") or "instagram.com/fatur.285"
+# Default .helpme Logo
+INLINE_PIC = os.environ.get(
+    "INLINE_PIC") or "https://telegra.ph/file/e2e2855baf3a668f6aa9e.jpg"
 
 # Default emoji help
-EMOJI_HELP = os.environ.get("EMOJI_HELP") or "✰"
-
-# Default .alive Group
-GROUP_LINK = os.environ.get(
-    "GROUP_LINK") or "t.me/fandasupport"
-
-# Default .repo Bot
-OWNER_BOT = os.environ.get(
-    "OWNER_BOT") or "t.me/uurfavboys"
-
+EMOJI_HELP = os.environ.get("EMOJI_HELP") or "✨"
 
 # Last.fm Module
 BIO_PREFIX = os.environ.get("BIO_PREFIX", None)
-DEFAULT_BIO = os.environ.get("DEFAULT_BIO") or "⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡"
+DEFAULT_BIO = os.environ.get("DEFAULT_BIO", None)
 
-LASTFM_API = os.environ.get("LASTFM_API", None)
+LASTFM_API = os.environ.get(
+    "LASTFM_API") or "73d42d9c93626709dc2679d491d472bf"
+
 LASTFM_SECRET = os.environ.get("LASTFM_SECRET", None)
 LASTFM_USERNAME = os.environ.get("LASTFM_USERNAME", None)
 LASTFM_PASSWORD_PLAIN = os.environ.get("LASTFM_PASSWORD", None)
@@ -267,8 +271,8 @@ G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
 G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
 G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
 G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID", None)
-TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY",
-                                         "./downloads")
+TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
+    "TMP_DOWNLOAD_DIRECTORY", "./downloads")
 # Google Photos
 G_PHOTOS_CLIENT_ID = os.environ.get("G_PHOTOS_CLIENT_ID", None)
 G_PHOTOS_CLIENT_SECRET = os.environ.get("G_PHOTOS_CLIENT_SECRET", None)
@@ -277,18 +281,15 @@ if G_PHOTOS_AUTH_TOKEN_ID:
     G_PHOTOS_AUTH_TOKEN_ID = int(G_PHOTOS_AUTH_TOKEN_ID)
 
 # Genius Lyrics  API
-GENIUS = os.environ.get("GENIUS_ACCESS_TOKEN", None)
-
-# IMG Stuff
-IMG_LIMIT = os.environ.get("IMG_LIMIT") or None
-CMD_HELP = {}
+GENIUS = os.environ.get(
+    "GENIUS") or "vDhUmdo_ufwIvEymMeMY65IedjWaVm1KPupdx0L"
 
 # Quotes API Token
-QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN", None)
+QUOTES_API_TOKEN = os.environ.get(
+    "QUOTES_API_TOKEN") or "33273f18-4a0d-4a76-8d78-a16faa002375"
 
-# Defaul botlog msg
-BOTLOG_MSG = os.environ.get(
-    "BOTLOG_MSG") or "**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡ Berhasil Di Aktifkan**\n━━━━━━\n➠ **Bot Version:** `V8.0.0`\n➠ **Ketik** `.alive` **untuk Mengecek Bot**\n━━━━━━\n➠ **Group:** @fandasupport\n━━━━━━"
+# Wolfram Alpha API
+WOLFRAM_ID = os.environ.get("WOLFRAM_ID") or None
 
 # Deezloader
 DEEZER_ARL_TOKEN = os.environ.get("DEEZER_ARL_TOKEN", None)
@@ -315,8 +316,8 @@ def is_mongo_alive():
 
 
 # Init Redis
-# Redis akan di-host di dalam wadah buruh pelabuhan yang menampung bot
-# Kami membutuhkan redis hanya untuk caching, jadi kami serahkan saja ke non-persistent
+# Redis will be hosted inside the docker container that hosts the bot
+# We need redis for just caching, so we just leave it to non-persistent
 REDIS = StrictRedis(host='localhost', port=6379, db=0)
 
 
@@ -328,8 +329,8 @@ def is_redis_alive():
         return False
 
 
-# Setting up CloudMail.ru and MEGA.nz extractor binaries,
-# dan memberi mereka izin yang benar untuk bekerja dengan benar.
+# Setting Up CloudMail.ru and MEGA.nz extractor binaries,
+# and giving them correct perms to work properly.
 if not os.path.exists('bin'):
     os.mkdir('bin')
 
@@ -347,11 +348,42 @@ for binary, path in binaries.items():
 
 # 'bot' variable
 if STRING_SESSION:
-    # pylint: disable=invalid-name
-    bot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
+    session = StringSession(str(STRING_SESSION))
 else:
-    # pylint: disable=invalid-name
-    bot = TelegramClient("userbot", API_KEY, API_HASH)
+    session = "Kayzu-UBot"
+try:
+    bot = TelegramClient(
+        session=session,
+        api_id=API_KEY,
+        api_hash=API_HASH,
+        auto_reconnect=True,
+        connection_retries=None,
+    )
+except Exception as e:
+    print(f"STRING_SESSION - {e}")
+    sys.exit()
+
+
+async def checking():
+    gocheck = str("@fandasupport")
+    checker = str("@fandaproject")
+    try:
+        await bot(GetSec(gocheck))
+    except BaseException:
+        pass
+    try:
+        await bot(GetSec(checker))
+    except BaseException:
+        pass
+
+with bot:
+    try:
+        bot.loop.run_until_complete(checking())
+    except BaseException:
+        LOGS.info(
+            "BOTLOG_CHATID environment variable isn't a "
+            "valid entity. Check your environment variables/config.env file.")
+        quit(1)
 
 
 async def check_botlog_chatid():
@@ -389,7 +421,7 @@ with bot:
 
 
 async def check_alive():
-    await bot.send_message(BOTLOG_CHATID, f"{BOTLOG_MSG}")
+    await bot.send_file(BOTLOG_CHATID, ALIVE_LOGO, caption=f"**Kayzu-Ubot Berhasil Diaktifkan🔥**\n━━━━━━━━━━━━━━━━━━━\n❃ **ʙᴏᴛ ᴏꜰ :** {ALIVE_NAME}\n❃ **ʙᴏᴛ ᴠᴇʀ :** 7.0\n━━━━━━━━━━━━━━━━━━━\n❃ **sᴜᴘᴘᴏʀᴛ​ :** @fandasupport\n❃ **ᴄʜᴀɴɴᴇʟ​ :** @kayzuchannel \n━━━━━━━━━━━━━━━━━━━")
     return
 
 with bot:
@@ -400,6 +432,7 @@ with bot:
             "BOTLOG_CHATID environment variable isn't a "
             "valid entity. Check your environment variables/config.env file.")
         quit(1)
+
 
 # Global Variables
 COUNT_MSG = 0
@@ -412,176 +445,159 @@ ISAFK = False
 AFKREASON = None
 ZALG_LIST = {}
 
-#Import Userbot - Ported by DIORrios285
-from userbot import (
-    ALIVE_NAME
-)
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
 
-async def update_restart_msg(chat_id, msg_id):
-    DEFAULTUSER = ALIVE_NAME or "Set `ALIVE_NAME` ConfigVar!"
-    message = (
-        f"**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡ v{BOT_VER} Sedang berjalan!**\n\n"
-        f"**Telethon:** {version.__version__}\n"
-        f"**Python:** {python_version()}\n"
-        f"**User:** {DEFAULTUSER}"
-    )
-    await bot.edit_message(chat_id, msg_id, message)
-    return True
-
-
-try:
-    from userbot.modules.sql_helper.globals import delgvar, gvarstatus
-
-    chat_id, msg_id = gvarstatus("restartstatus").split("\n")
-    with bot:
-        try:
-            bot.loop.run_until_complete(update_restart_msg(int(chat_id), int(msg_id)))
-        except BaseException:
-            pass
-    delgvar("restartstatus")
-except AttributeError:
-    pass
-
-
-if not BOT_TOKEN is None:
-    tgbot = TelegramClient(
-        "TG_BOT_TOKEN",
-        api_id=API_KEY,
-        api_hash=API_HASH,
-        auto_reconnect=True,
-        connection_retries=None,
-    ).start(bot_token=BOT_TOKEN)
-else:
-    tgbot = None
-
 
 def paginate_help(page_number, loaded_modules, prefix):
     number_of_rows = 5
-    number_of_cols = 4
-    global looters
-    looters = page_number
+    number_of_cols = 2
+    global lockpage
+    lockpage = page_number
     helpable_modules = [p for p in loaded_modules if not p.startswith("_")]
     helpable_modules = sorted(helpable_modules)
     modules = [
         custom.Button.inline(
-            "{} {} {}".format(f"{EMOJI_HELP}", x, f"{EMOJI_HELP}"),
-            data="ub_modul_{}".format(x),
-        )
-        for x in helpable_modules
-    ]
-    pairs = list(
-        zip(
-            modules[::number_of_cols],
-            modules[1::number_of_cols],
-        )
-    )
+            "{} {} {} ".format(
+                f"{EMOJI_HELP}",
+                x,
+                f"{EMOJI_HELP}"),
+            data="ub_modul_{}".format(x)) for x in helpable_modules]
+    pairs = list(zip(modules[:: number_of_cols],
+                     modules[1::number_of_cols]))
     if len(modules) % number_of_cols == 1:
         pairs.append((modules[-1],))
     max_num_pages = ceil(len(pairs) / number_of_rows)
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
         pairs = pairs[
-            modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)
-        ] + [
-            (
-                custom.Button.inline(
-                    "⟨⟨", data="{}_prev({})".format(prefix, modulo_page)
-                ),
-                custom.Button.inline(
-                    f"⍅ 𝗖𝗟𝗢𝗦𝗘 ⍆", data="{}_close({})".format(prefix, modulo_page)
-                ),
-                custom.Button.inline(
-                    "⟩⟩", data="{}_next({})".format(prefix, modulo_page)
-                ),
-            )
-        ]
+            modulo_page * number_of_rows: number_of_rows * (
+                modulo_page + 1)] + [
+            (custom.Button.inline(
+                "<<ᴘʀᴇᴠɪᴏᴜꜱ", data="{}_prev({})".format(
+                    prefix, modulo_page)), custom.Button.inline(
+                        "ᴍᴇɴᴜ", data="{}_close({})".format(
+                            prefix, modulo_page)), custom.Button.inline(
+                                "ɴᴇxᴛ>>", data="{}_next({})".format(
+                                    prefix, modulo_page)), )]
     return pairs
 
 
 with bot:
     try:
+        tgbot = TelegramClient(
+            "TG_BOT_TOKEN",
+            api_id=API_KEY,
+            api_hash=API_HASH).start(
+            bot_token=BOT_TOKEN)
 
         dugmeler = CMD_HELP
-        user = bot.get_me()
-        uid = user.id
-        logo = ALIVE_LOGO
-        diorlogo = HELP_LOGO
-        tgbotusername = BOT_USERNAME
+        me = bot.get_me()
+        uid = me.id
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile("open")
+            )
+        )
+        async def opeen(event):
+            try:
+                tgbotusername = BOT_USERNAME
+                if tgbotusername is not None:
+                    results = await event.client.inline_query(tgbotusername, "@KayzuUbot")
+                    await results[0].click(
+                        event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
+                    )
+                    await event.delete()
+                else:
+                    await event.edit(
+                        "`The bot doesn't work! Please set the Bot Token and Username correctly. The module has been stopped.`"
+                    )
+            except Exception:
+                return await event.edit(
+                    "⛔ **Kamu Tidak Diizinkan Untuk Menekan Nya**!"
+                )
+
+        kyylogo = INLINE_PIC
+        plugins = CMD_HELP
+        vr = BOT_VER
+
+# ------------------------------ChatAction--------------->
+
+        @tgbot.on(events.ChatAction)
+        async def handler(event):
+            if event.user_joined or event.user_added:
+                u = await event.client.get_entity(event.chat_id)
+                c = await event.client.get_entity(event.user_id)
+                await event.reply(
+                    f"**Hallo Kamu**\n**Welcome To** [{get_display_name(u)}](tg://user?id={u.id}) \n\n"
+                    f"✥ **ᴘᴇɴɢɢᴜɴᴀ​ :** {get_display_name(c)} \n"
+                    f"✥ **ɪᴅ ᴘᴇɴɢɢᴜɴᴀ​ :** {c.id} \n"
+                    f"✥ **ᴜsᴇʀɴᴀᴍᴇ​ :** @{c.username} \n"
+                    f"✥ **ᴍᴇɴᴛɪᴏɴ​ :** [{get_display_name(c)}](tg://user?id={c.id}) \n\n"
+                    f"sᴇᴍᴏɢᴀ ʙᴇᴛᴀʜ ᴅɪsɪɴɪ ʏᴀ​ ✨\n",
+                    buttons=[
+                        [
+                            Button.url("ʀᴇᴘᴏ​",
+                                       "https://github.com/DIORrios285/DIOR-UBOT")],
+                    ]
+                )
+
+# ====================================InlineHandler===================================== #
 
         @tgbot.on(events.NewMessage(pattern="/start"))
         async def handler(event):
-            await event.message.get_sender()
-            text = (
-                f"__Hey, I am using__  **⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡** \n\n"
-                f"⚡ **Group Support :** [Fanda Support](t.me/fandasupport)\n"
-                f"⚡ **Owner Repo :** [Fatur](t.me/uurfavboys)\n"
-                f"⚡ **Repo :** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-BOT)\n"
-            )
-            await tgbot.send_file(
-                event.chat_id,
-                logo,
-                caption=text,
-                buttons=[
-                        [
-                             Button.url(f"sᴜᴘᴘᴏʀᴛ​",
-                                        "t.me/fandasupport"),
-                             Button.url(f"ᴜᴘᴅᴀᴛᴇs​",
-                                        "t.me/fandaproject")],
-                             [Button.url("ᴅᴇᴠᴇʟᴏᴘᴇʀ​",
-                                        "t.me/uurfavboys")],
-                        ],
-                      )
-
-        @tgbot.on(events.InlineQuery)
-        async def inline_handler(event):
-            builder = event.builder
-            result = None
-            query = event.text
-            if event.query.user_id == uid and query.startswith("@Dior_ubot"):
-                buttons = paginate_help(0, dugmeler, "helpme")
-                result = builder.photo(
-                    file=diorlogo,
-                    link_preview=False,
-                    text=f"⚡ **inline 𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n\n• **Bot of:** {tgbotusername}\n• **modules:** `{len(dugmeler)}`\n• **Developer:** [FATUR](https://t.me/uurfavboys1)",
-                    buttons=buttons,
-                )
-            elif query.startswith("repo"):
-                result = builder.article(
-                    title="Repository",
-                    description="Repository ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
-                    url="https://t.me/fandaproject",
-                    text="**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡**\n▬▭▬▬▭▬\n➥ **Developer:** [FATUR](https://t.me/uurfavboys)\n▬▭▬▬▭▬\n➥ **Repository:** [DIOR-UBOT](https://github.com/DIORrios285/DIOR-UBOT)\n▬▭▬▬▭▬",
+            if event.message.from_id != uid:
+                await event.client.get_entity(event.chat_id)
+                await event.reply(
+                    f"{START_WELCOME}\n\n**Powered By** : @Kayzuuuuu\n\n",
                     buttons=[
                         [
-                            custom.Button.url("ɢʀᴏᴘ", "https://t.me/fandasupport"),
-                            custom.Button.url(
-                                "ʀᴇᴘᴏ", "https://github.com/DIORrios285/DIOR-UBOT"
-                            ),
-                        ],
-                    ],
-                    link_preview=False,
+                            custom.Button.inline(
+                                "ꜱᴇᴛᴛɪɴɢꜱ", data="settings"),
+                            custom.Button.inline(
+                                "ɪɴꜰᴏ", data="about")],
+                        [custom.Button.inline("ᴍᴇɴᴜ", data="kanan")],
+                    ]
                 )
             else:
-                result = builder.article(
-                    title="⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡",
-                    description="DIOR-UBOT | Telethon",
-                    url="https://t.me/fandasupport",
-                    text=f"**𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙**\n▬▭▬▬▭▬\n➥ **Owner:** [FATUR](t.me/uurfavboys)\n▬▭▬▬▭▬\n➥ **Bot of:** {tgbotusername}\n▬▭▬▬▭▬",
-                    buttons=[
-                        [
-                            custom.Button.url("ɢʀᴜᴘ", "https://t.me/fandasupport"),
-                            custom.Button.url("ʀᴇᴘᴏ", "https://github.com/DIORrios285/DIOR-UBOT"),
-                        ],
-                    ],
-                    link_preview=False,
+                reply_pop_up_alert = f"🚫!WARNING!🚫 Jangan Menggunakan Milik {DEFAULTUSER} Nanti Kena Ghosting."
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(events.NewMessage(pattern="/ping"))
+        async def handler(event):
+            if event.message.from_id != uid:
+                start = datetime.now()
+                end = datetime.now()
+                ms = (end - start).microseconds / 1000
+                await tgbot.send_message(
+                    event.chat_id,
+                    f"**PONG!!**\n `{ms}ms`",
                 )
-            await event.answer(
-                [result], switch_pm="👥 USERBOT PORTAL", switch_pm_param="start"
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(f"open_plugin")
             )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            event.builder
+            query = event.text
+            if event.query.user_id == uid and query.startswith(
+                    "@Kayzuuuuu"):
+                buttons = paginate_help(0, dugmeler, "helpme")
+                text = f"Usᴇʀʙᴏᴛ​ Tᴇʟᴇɢʀᴀᴍ\n\n**ɪɴʟɪɴᴇ ᴍᴇɴᴜ​**\n\n❥ **ʙᴏᴛ ᴏꜰ :** {DEFAULTUSER}\n❥ **ʙᴏᴛ ᴠᴇʀ :** 5.0\n❥ **ᴍᴏᴅᴜʟᴇꜱ :** {len(plugins)}\n❥ **ʙᴏᴛʏᴏᴜ :** @{BOT_USERNAME} "
+                await event.edit(text,
+                                 file=kyylogo,
+                                 buttons=buttons,
+                                 link_preview=False,
+                                 )
+
+            else:
+                reply_pop_up_alert = f"❌ WARNINGS ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini."
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
         @tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
@@ -589,54 +605,385 @@ with bot:
             )
         )
         async def on_plug_in_callback_query_handler(event):
-            current_page_number = int(looters)
-            buttons = paginate_help(current_page_number, dugmeler, "helpme")
+            current_page_number = int(lockpage)
+            buttons = paginate_help(current_page_number, plugins, "helpme")
             await event.edit(
-                file=diorlogo,
+                file=kyylogo,
                 buttons=buttons,
                 link_preview=False,
             )
 
-        @tgbot.on(events.InlineQuery)  # pylint:disable=E0602
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"about")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"❁ __Saya Adalah Kayzu Userbot Yang Digunakan Banyak User Telegram__.\n\n"
+                    f"❁ __Saya Dibuat Hanya Untuk Bersenang Senang Ditelegram__.\n\n"
+                    f"❁ __Kelebihan Saya Banyak, Saya Mempunyai 1816 Modules__.\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [custom.Button.inline("ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"🤴 Name : {DEFAULTUSER}\n🤖 Bot Ver : 7.0\n🛠 Modules : {len(plugins)}\n🔥 Branch : Kayzu-Ubot"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"settings")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"{DEFAULTUSER}Pilih dari opsi di bawah ini :")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [custom.Button.inline("ᴀʟɪᴠᴇ", data="alive")],
+                        [custom.Button.inline("ᴘᴍᴘᴇʀᴍɪᴛ", data="permirt")],
+                        [custom.Button.inline("ᴘᴍʙᴏᴛ", data="pmbot")],
+                        [custom.Button.inline(
+                            "ɪɴʟɪɴᴇ ᴍᴏᴅᴇ ", data="inline_mode")],
+                        [custom.Button.inline("ᴍᴇɴᴜ", data="kanan")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @ tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"kanan")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Menu Lainnya ! Untuk {DEFAULTUSER}")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [custom.Button.inline("ᴜᴘᴅᴀᴛᴇ", data="pembaruan")],
+                        [custom.Button.inline("ᴘɪɴɢ", data="ping")],
+                        [custom.Button.inline("ᴄᴇᴋ ᴅʏɴᴏ", data="restart_bot")],
+                        [custom.Button.inline("<<ʟᴇꜰᴛ", data="settings")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"alive")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Modules Name **Alive**\n\n"
+                    f"× `.alive` × `.kayalive` × `.kayon`\n"
+                    f"°__Menampilkan Alive Punya Kamu__.\n\n"
+                    f"× `.set var ALIVE_LOGO` [**LINK**]\n"
+                    f"°__Mengubah Foto Alive Kamu, Yang Kamu Inginkan__.\n\n"
+                    f"× `.set var KAYZU_TEKS_KUSTOM` [**TEKS**]\n"
+                    f"°__Mengganti Teks Yang Ada Command KayAlive__.\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="settings"),
+                            custom.Button.inline(
+                                "ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"permirt")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Modules Name **pmpermit**\n\n"
+                    f"× `.set var PM_AUTO_BAN True`\n"
+                    f"°__Mengaktifkan Pmpermit Kalian Atau Disebut Pesan Otomatis__.\n\n"
+                    f"× `.set pm_msg` [**REPLYCHAT**]\n"
+                    f"°__Mengganti Teks Pmpermit Selera Kamu__.\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="settings"),
+                            custom.Button.inline(
+                                "ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"inline_mode")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Modules Name **inline**\n\n"
+                    f"× `.set var EMOJI_HELP` [**EMOJI**]\n"
+                    f"°__Mengubah Emoji Inline Yang Ada Dicomand__ `.helpme`\n\n"
+                    f"× `.set var INLINE_PIC` [**LINK**]\n"
+                    f"°__Mengubah Foto Yang Ada Dicomand__ `.helpme`\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyulogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="settings"),
+                            custom.Button.inline(
+                                "ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"pmbot")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Modules Name **pmbot**\n\n"
+                    f"× `.set var START_WELCOME` [**TEKS**] \n"
+                    f"°__Kamu Juga Bisa Mengubah Start Welcome Untuk Bot Kamu Yang Ini, Dengan Cara Diatas Dan Kata Kata Bebas__.\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="settings"),
+                            custom.Button.inline(
+                                "ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"pembaruan")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Modules Name **Pembaruan**\n\n"
+                    f"× **Pembaruan Data Untuk Kyy Userbot, Command Untuk Pembaruan**.\n"
+                    f"⚒Pembaruan Data :\n"
+                    f"`.update deploy`\n"
+                    f"`update`\n\n"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="kanan"),
+                            custom.Button.inline(
+                                "ᴄʟᴏꜱᴇ", data="closed")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @ tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"ping")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                start = datetime.now()
+                end = datetime.now()
+                ms = (end - start).microseconds / 1000
+                text = (
+                    f"**PONG!!**\n `{ms}ms`")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="kanan")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"PONG!!\n `{ms}ms`"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"dyno_usage")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if apps.get('app_uuid') == app.id:
+                apps.get('quota_used') / 60
+                AppPercentage = math.floor(
+                    apps.get('quota_used') * 100 / quota)
+                text = (
+                    "✨ **ɪɴꜰᴏʀᴍᴀsɪ ᴅʏɴᴏ ʜᴇʀᴏᴋᴜ :**\n"
+                    "╔════════════════════╗\n"
+                    f" ☂ **ᴘᴇɴɢɢᴜɴᴀ ᴅʏɴᴏ sᴀᴀᴛ ɪɴɪ :**\n"
+                    f"  ➽  `{AppHours}`**ᴊᴀᴍ**  `{AppMinutes}`**ᴍᴇɴɪᴛ**  "
+                    f"**|**  [`{AppPercentage}`**%**]"
+                    "\n◖════════════════════◗\n"
+                    " ☂ **sɪsᴀ ᴋᴏᴜᴛᴀ ᴅʏɴᴏ ʙᴜʟᴀɴ ɪɴɪ :**\n"
+                    f"  ➽  `{hours}`**ᴊᴀᴍ**  `{minutes}`**ᴍᴇɴɪᴛ**  "
+                    f"**|**  [`{percentage}`**%**]\n"
+                    f" ✠➲ **ʙᴏᴛ ᴏꜰ :** {ALIVE_NAME}  "
+                    "\n╚════════════════════╝"
+                    f"© @Kayzuuuuu")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="kanan")],
+                    ]
+                )
+            else:
+                reply_pop_up_alert = f"❌ DISCLAIMER ❌\n\nAnda Tidak Mempunyai Hak Untuk Menekan Tombol Button Ini"
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @ tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"restart_bot")
+            )
+        )
+        async def killdabot(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"**Restaring Kayzu-Ubot**...")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            custom.Button.inline(
+                                "ʙᴀᴄᴋ", data="kanan")],
+                    ]
+                )
+
+        @ tgbot.on(
+            events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+                data=re.compile(rb"closed")
+            )
+        )
+        async def on_plug_in_callback_query_handler(event):
+            if event.query.user_id == uid:
+                text = (
+                    f"Closed Menu!")
+                await event.edit(
+                    text,
+                    file=kyylogo,
+                    link_preview=True,
+                    buttons=[
+                        [
+                            Button.url("ᴄʜᴀɴɴᴇʟ",
+                                       "t.me/kayzuchannel")],
+                    ]
+                )
+
+        @ tgbot.on(events.InlineQuery)  # pylint:disable=E0602
         async def inline_handler(event):
             builder = event.builder
             result = None
             query = event.text
-            if event.query.user_id == uid and query.startswith("@Dior_ubot"):
+            if event.query.user_id == uid and query.startswith(
+                    ""):
                 buttons = paginate_help(0, dugmeler, "helpme")
                 result = builder.photo(
-                    file=diorlogo,
+                    file=kyylogo,
                     link_preview=False,
-                    text=f"Usᴇʀʙᴏᴛ Tᴇʟᴇɢʀᴀᴍ\n\n❥ **ʙᴏᴛ ᴏꜰ :** {DEFAULTUSER}\n❥ **ʙᴏᴛ ᴠᴇʀ :** 8.0.0\n❥ **ᴍᴏᴅᴜʟᴇꜱ :** {len(plugins)}\n❥ @fandasupport".format(
+                    text=f"Usᴇʀʙᴏᴛ​ Tᴇʟᴇɢʀᴀᴍ\n\n**ɪɴʟɪɴᴇ ᴍᴇɴᴜ​​**\n\n❥ **ʙᴏᴛ ᴏꜰ :** {DEFAULTUSER}\n❥ **ʙᴏᴛ ᴠᴇʀ :** 5.0\n❥ **ᴍᴏᴅᴜʟᴇꜱ :** {len(plugins)}\n❥ **ʙᴏᴛʏᴏᴜ :** @{BOT_USERNAME}".format(
                         len(dugmeler),
                     ),
                     buttons=buttons,
                 )
             elif query.startswith("tb_btn"):
                 result = builder.article(
-                    "Bantuan Dari {REPO_NAME}",
+                    "Bantuan Dari 🔥ҡᴀʏᴢᴜ-ᴜвσт🔥",
                     text="Daftar Plugins",
                     buttons=[],
                     link_preview=True)
             else:
-                result = builder.article("{REPO_NAME}",
-                                         text="""𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙""",
-                                         buttons=[
-                                                  [custom.Button.url("ꜰᴀᴛᴜʀ​",
-                                                                     "t.me/uurfavboys"),
-                                                   custom.Button.url("ɢʀᴜᴘ​",
-                                                                     "t.me/fandasupport"),
-                                                  ],
-                                                  [custom.Button.url("ʟɪᴄᴇɴsᴇ​",
-                                                                     "https://github.com/DIORrios285/DIOR-UBOT/LICENSE",
-                                                                     )],
-                                                  ],
-                                          link_preview=False,
-                                          )
+                result = builder.article(
+                    " 🔥ҡᴀʏᴢᴜ-ᴜвσт🔥",
+                    text="""°Kayzu-Ubot°""",
+                    buttons=[
+                        [
+                            custom.Button.url(
+                                "Kayzu",
+                                "https://github.com/DIORrios285/DIOR-UBOT"),
+
+                            custom.Button.url(
+                                "Channel",
+                                "t.me/kayzuchannel")],
+                        [custom.Button.url(
+                            "License",
+                            "https://github.com/DIORrios285/DIOR-UBOT/LICENSE")],
+                    ],
+                    link_preview=False,
+                )
             await event.answer([result] if result else None)
 
-
-        @tgbot.on(
+        @ tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_next\((.+?)\)")
             )
@@ -653,39 +1000,36 @@ with bot:
                 reply_pop_up_alert = f"🚫!WARNING!🚫 Jangan Menggunakan Milik {DEFAULTUSER}."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-        @tgbot.on(
+        @ tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"helpme_close\((.+?)\)")
             )
         )
         async def on_plug_in_callback_query_handler(event):
-            if event.query.user_id == uid:  # @Dior_ubot
+            if event.query.user_id == uid:  # userbot
                 # https://t.me/TelethonChat/115200
                 await event.edit(
-                    file=diorlogo,
+                    file=kyylogo,
                     link_preview=True,
                     buttons=[
                         [
-                            Button.url("Sumbang Kosa kata",
-                                       "t.me/requestkatakatalubot"),],
-                        [
-                            Button.url("Support",
+                            Button.url("❈ꜱᴜᴘᴘᴏʀᴛ❈",
                                        "t.me/fandasupport"),
-                            Button.url("Updates",
+                            Button.url("❈ᴄʜᴀɴɴᴇʟ❈",
                                        "t.me/fandaproject")],
                         [custom.Button.inline(
-                            "Open Menu", data="open_plugin")],
+                            "°ᴏᴘᴇɴ ᴍᴇɴᴜ°", data="open_plugin")],
                         [custom.Button.inline(
-                            "Close", b"close")],
+                            "°ᴄʟᴏꜱᴇ ɪɴʟɪɴᴇ°", b"close")],
                     ]
                 )
 
-        @tgbot.on(events.CallbackQuery(data=b"close"))
+        @ tgbot.on(events.CallbackQuery(data=b"close"))
         async def close(event):
-            buttons =[
-                [custom.Button.inline("Open Menu", data="nepo")],
+            buttons = [
+                (custom.Button.inline("Open Menu", data="open_plugin"),),
             ]
-            await event.edit("Menu Ditutup!", buttons=buttons.clear())
+            await event.edit(f"Menu Ditutup! ", buttons=buttons)
 
         @ tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
@@ -705,7 +1049,7 @@ with bot:
                 reply_pop_up_alert = f"🚫!WARNING!🚫 Jangan Menggunakan Milik {DEFAULTUSER}."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-        @tgbot.on(
+        @ tgbot.on(
             events.callbackquery.CallbackQuery(  # pylint:disable=E0602
                 data=re.compile(rb"ub_modul_(.*)")
             )
