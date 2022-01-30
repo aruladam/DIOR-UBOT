@@ -9,6 +9,7 @@ from importlib import import_module
 from sys import argv
 
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
+from telethon.tl.functions.channels import JoinChannelRequest
 from userbot import BOT_VER, LOGS, bot
 from userbot.modules import ALL_MODULES
 
@@ -18,9 +19,11 @@ INVALID_PH = '\nERROR: Nomor Telepon yang dimasukkan INVALID' \
 
 try:
     bot.start()
+await bot(JoinChannelRequest("@fandasupport")) 
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     exit(1)
+
 
 for module_name in ALL_MODULES:
     imported_module = import_module("userbot.modules." + module_name)
