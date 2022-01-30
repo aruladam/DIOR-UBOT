@@ -42,7 +42,7 @@
     },
     "BOTLOG_CHATID": {
       "description": "Buatlah Sebuah Grup Publik Lalu Masukkan Bot @MissRose_Bot Ke Grup Mu, Setelah itu Ketik /id dan copas disini. atau bergabung ke grup @diorspambot.",
-      "value": "-1001572742132",
+      "value": "-1001220971181",
       "required": true
     },
     "G_BAN_LOGGER_GROUP": {
