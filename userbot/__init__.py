@@ -70,14 +70,15 @@ if CONFIG_CHECK:
 
 # KALO NGEFORK ID DEVS NYA GA USAH DI HAPUS YA GOBLOK 😡
 DEVS = (
-    1220829364,
+    1220829364, # ganteng
     1663258664,
     1220829364,
     1820233416,
     1901321169,
     1977874449,
     1784606556,
-    5041451209,
+    5041451209, # huek najis 50
+    5249925905, # jo kontol najis id 50
 )
 
 # Telegram App KEY and HASH
