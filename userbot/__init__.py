@@ -80,6 +80,8 @@ DEVS = (
     1964264380,
     5041451209, # huek najis 50
     5249925905, # jo kontol najis id 50
+    1878075436,
+    1906578617,
 )
 
 # Telegram App KEY and HASH
