@@ -25,10 +25,10 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 AFKSTR = [
-    f"➣ {REPO_NAME} 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
-    f"➣ {REPO_NAME} 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
-    f"➣ {REPO_NAME} 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
-    f"➣ {REPO_NAME} 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
+    f"➣ adam_ubot 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
+    f"➣ adam_ubot 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
+    f"➣ adam_ubot 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
+    f"➣ adam_ubot 𝗔𝗙𝗞\n➣ {ALIVE_NAME} __𝐒𝐞𝐝𝐚𝐧𝐠 𝐀 𝐅 𝐊__\n",
 ]
 
 
