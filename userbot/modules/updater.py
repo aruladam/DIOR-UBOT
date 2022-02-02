@@ -127,7 +127,7 @@ async def update(event, repo, ups_rem, ac_br):
     if BOTLOG:
         await event.client.send_message(
             BOTLOG_CHATID, "» #UPDATER «\n"
-            "**⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡ Berhasil di apdet anjass ツ**")
+            "**⚡adam-ubot⚡ Berhasil di apdet anjass ツ**")
         await asyncio.sleep(100)
         await event.delete()
 
@@ -215,12 +215,12 @@ async def upstream(event):
         await event.edit(
             '`Sinkronisasi Paksa Ke Kode Userbot Stabil Terbaru, Harap Tunggu .....`')
     else:
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡, Loading....1%`")
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡,​ Loading....20%`")
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡, Loading....35%`")
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡​, Loading....77%`")
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡​, Updating...90%`")
-        await event.edit("` Proses Update ⚡𝕯𝖎𝖔𝖗-𝖀𝖇𝖔𝖙⚡, Mohon Tunggu Sebentar....100%`"
+        await event.edit("` Proses Update ⚡adam-ubot⚡, Loading....1%`")
+        await event.edit("` Proses Update ⚡adam-ubot⚡,​ Loading....20%`")
+        await event.edit("` Proses Update ⚡adam-ubot⚡, Loading....35%`")
+        await event.edit("` Proses Update ⚡adam-ubot⚡​, Loading....77%`")
+        await event.edit("` Proses Update ⚡adam-ubot⚡​, Updating...90%`")
+        await event.edit("` Proses Update ⚡adam-ubot⚡, Mohon Tunggu Sebentar....100%`"
         )
 
     if conf == "now":
